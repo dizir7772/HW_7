@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 setup(
     name='clean_folder',
@@ -6,10 +6,10 @@ setup(
     author='Viacheslav Artemenko',
     author_email='v.a.artemenko1990@gmail.com',
     description='A package for cleaning folders',
-    packages=['clean_folder'],
+    packages=find_namespace_packages(),
     entry_points={
         'console_scripts': [
-            'clean-folder=clean_folder.main:main'
-        ]
-    },
+            'clean-folder=clean_folder.clean_folder:main'
+            ]
+        },
 )

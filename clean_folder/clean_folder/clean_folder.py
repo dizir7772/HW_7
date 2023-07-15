@@ -63,6 +63,7 @@ def normalize(name: str) -> str:
     t_name = re.sub(r'\W', '_', t_name)
     return return_extension(t_name)
 
+
 def return_extension(string: str) -> str:
     parts = string.rsplit('_', 1)
     extension = parts[1]
@@ -124,7 +125,11 @@ def handle_folder(folder: Path):
         print(f"Can't delete folder: {folder}")
 
 
-def main(folder: Path):
+def main():
+    if len(sys.argv) != 2:
+        print("---> Usage: py clean_folder.py folder_path <---")
+        sys.exit(1)
+    folder = Path(sys.argv[1])
     scan(folder)
     for file in JPEG_IMAGES:
         handle_media(file, folder / 'images' / 'JPEG')
@@ -170,14 +175,9 @@ def main(folder: Path):
 
     for folder in FOLDERS[::-1]:
         handle_folder(folder)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("---> Usage: py clean_folder.py folder_path <---")
-        sys.exit(1)
-    folder_for_scan = Path(sys.argv[1])
-    print(f'Start in folder: {folder_for_scan.resolve()}')
-    main(folder_for_scan.resolve())
+    
     print(f'Known types of files in folder: {EXTENSION}')
     print(f'Unknown types of files: {UNKNOWN}')
+
+if __name__ == "__main__":
+    main()
